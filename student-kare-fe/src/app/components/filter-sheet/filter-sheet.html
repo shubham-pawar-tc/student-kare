@@ -13,9 +13,9 @@
 
   <!-- Header -->
   <div class="flex items-center justify-between px-[20px] pt-[18px] pb-[12px] flex-shrink-0">
-    <span class="text-[16px] font-semibold text-[#1A1C1E]">Filter</span>
+    <span class="text-[16px] font-bold text-[#1A1C1E]">Filter</span>
     <button (click)="clearAll()"
-            class="text-[14px] font-medium text-[#5732EE]">Clear all</button>
+            class="text-[14px] font-bold text-[#5732EE]">Clear all</button>
   </div>
   <div class="h-[1px] bg-[#EFEFEF] flex-shrink-0"></div>
 
@@ -32,7 +32,8 @@
               [class.bg-[#E8E4F9]]="activeSection === sec.key">
         <span class="text-[14px]"
               [class.text-[#5732EE]]="activeSection === sec.key"
-              [class.font-medium]="activeSection === sec.key"
+              [class.font-bold]="activeSection === sec.key"
+              [class.font-semibold]="activeSection !== sec.key"
               [class.text-[#1A1C1E]]="activeSection !== sec.key">
           {{ sec.label }}
         </span>
@@ -48,13 +49,24 @@
       <div class="flex flex-col gap-[20px]">
 
         <!-- Slider track row -->
-        <div class="relative pt-[8px]">
+        <div class="relative pt-[24px]">
           <!-- Value labels above track -->
-          <div class="flex justify-between text-[12px] text-[#1A1C1E] mb-[6px]">
-            <span>{{ priceAbsMin }}</span>
-            <span class="px-[8px] py-[2px] rounded-full bg-[#E8E4F9] text-[#5732EE] font-medium">{{ priceMin }}</span>
-            <span class="px-[8px] py-[2px] rounded-full bg-[#E8E4F9] text-[#5732EE] font-medium">{{ priceMax }}</span>
-            <span>{{ priceAbsMax }}</span>
+          <div class="relative h-[24px] mb-[4px] w-full text-[12px] text-[#1A1C1E]">
+            <!-- Bounds -->
+            <span class="absolute left-0" [class.opacity-0]="priceMin <= priceAbsMin + 2">{{ priceAbsMin }}</span>
+            <span class="absolute right-0" [class.opacity-0]="priceMax >= priceAbsMax - 2">{{ priceAbsMax }}</span>
+            
+            <!-- Floating Bubbles -->
+            <span class="absolute px-[8px] py-[2px] rounded-full bg-[#E8E4F9] text-[#5732EE] font-bold transform -translate-x-1/2 whitespace-nowrap z-10"
+                  [style.left.%]="minThumbPct">
+                  {{ priceMin }}
+                  <div class="bubble-triangle"></div>
+            </span>
+            <span class="absolute px-[8px] py-[2px] rounded-full bg-[#E8E4F9] text-[#5732EE] font-bold transform -translate-x-1/2 whitespace-nowrap z-10"
+                  [style.left.%]="maxThumbPct">
+                  {{ priceMax }}
+                  <div class="bubble-triangle"></div>
+            </span>
           </div>
 
           <!-- Dual range slider -->
@@ -215,11 +227,11 @@
   <!-- Footer buttons -->
   <div class="flex-shrink-0 flex items-center gap-[12px] px-[16px] py-[14px] border-t border-[#EFEFEF]">
     <button (click)="close()"
-            class="flex-1 h-[44px] rounded-full border border-[#5732EE] text-[#5732EE] text-[14px] font-medium bg-white">
+            class="flex-1 h-[44px] rounded-full border border-[#5732EE] text-[#5732EE] text-[14px] font-bold bg-white">
       Close
     </button>
     <button (click)="apply()"
-            class="flex-1 h-[44px] rounded-full bg-[#4252D3] text-white text-[14px] font-semibold">
+            class="flex-1 h-[44px] rounded-full bg-[#4252D3] text-white text-[14px] font-bold">
       Apply
     </button>
   </div>
